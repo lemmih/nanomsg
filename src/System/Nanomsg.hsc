@@ -22,15 +22,15 @@ module System.Nanomsg
   , freemsg
   ) where
 
-import           Data.ByteString.Internal
-import           Data.ByteString.Unsafe
+import           Data.ByteString          (ByteString)
+import           Data.ByteString.Unsafe   (unsafeUseAsCString, unsafePackCStringLen)
 import qualified Data.ByteString as B
-import           Foreign (Ptr, alloca, with, peek, sizeOf)
+import           Foreign                  (Ptr, alloca, with, peek, sizeOf)
 import           Foreign.C
-import Control.Monad
-import Data.Function
-import System.Posix.Types
-import Control.Concurrent
+import           Control.Monad            (void)
+import           Data.Function            (fix)
+import           System.Posix.Types       (Fd(..))
+import           Control.Concurrent       (threadWaitRead, threadWaitWrite)
 
 type Socket = CInt
 
